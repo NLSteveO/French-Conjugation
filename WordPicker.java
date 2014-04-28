@@ -10,6 +10,8 @@ public class WordPicker{
 	private int list1Size;
 	private int list2Size;
 	private int list3Size;
+	private int num1;
+	private int num2;
 	
 	public WordPicker(){
 		loadWords();
@@ -69,7 +71,14 @@ public class WordPicker{
 	}
 	
 	public String wordPair(){
-		return list1[randomNum(list1Size)] + "-" + list2[randomNum(list2Size)];
+		num1 = randomNum(list1Size);
+		num2 = randomNum(list2Size);
+		return list1[num1] + "-" + list2[num2];
+	}
+	
+	public String getAnswer(){
+		String[] tmp = list3[num2].split(",");
+		return tmp[num1];
 	}
 			
 	public void printLists(){
