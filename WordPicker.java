@@ -1,9 +1,25 @@
+/**
+ * French Conjugation Project
+ *
+ * WordPicker.java
+ *
+ * This program takes two list files and generates
+ * three arrays of lists. it can then call a word
+ * pair which will be two randomly selected words
+ * from the first two arrays and can call the
+ * correct answer for checking from the third array.
+ *
+ * @author Steve O'Keefe
+ */
+ 
+// Import classes
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 
 public class WordPicker{
 
+	// Variables
 	private String[] list1;
 	private String[] list2;
 	private String[] list3;
@@ -13,10 +29,16 @@ public class WordPicker{
 	private int num1;
 	private int num2;
 	
+	// Constructor
 	public WordPicker(){
 		loadWords();
 	}
 	
+	/**
+	 * Loads the two list files containing
+	 * the needed words and creates three
+	 * array word lists.
+	 */
 	public void loadWords(){
 		try {
 			Scanner in1 = new Scanner(new File("list1"));
@@ -42,6 +64,11 @@ public class WordPicker{
 		}
 	}
 	
+	/**
+	 * Takes an arraylist and given a list
+	 * number transfers the values from the
+	 * arraylist into the appropriate array.
+	 */
 	public void listSwap(int num, ArrayList<String> oldList){
 		if (num == 1){
 			list1Size = oldList.size();
@@ -66,21 +93,41 @@ public class WordPicker{
 		}
 	}
 	
+	/**
+	 * Returns a random integer given the list size.
+	 * Also designed to prevent repeat pairs.
+	 */
 	public int randomNum(int s){
-		return (int)(Math.random()*s);
+		int num = (int)(Math.random()*s);
+		while (num == num2){
+			num = (int)(Math.random()*s);
+		}
+		return num;
 	}
 	
+	/**
+	 * Returns a string of two words one randomly
+	 * selected from each list.
+	 */
 	public String wordPair(){
 		num1 = randomNum(list1Size);
 		num2 = randomNum(list2Size);
 		return list1[num1] + "-" + list2[num2];
 	}
 	
+	/**
+	 * Returns the correct answer corresponding
+	 * to the other two words.
+	 */
 	public String getAnswer(){
 		String[] tmp = list3[num2].split(",");
 		return tmp[num1];
 	}
-			
+	
+	/**
+	 * Used for testing purposes to print out the
+	 * two lists loaded. Will remove in future.
+	 */
 	public void printLists(){
 		System.out.println("\nlist1:");
 		for (String w : list1){

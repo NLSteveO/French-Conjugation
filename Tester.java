@@ -1,16 +1,35 @@
+/**
+ * French Conjugation Project
+ *
+ * Tester.java
+ *
+ * This is my test class for my WordPicker class. It allows
+ * me to run the program as long as i want and allowing any
+ * number of guesses for each pair as well as allowing to
+ * continuously generate again.
+ *
+ * @author Steve O'Keefe
+ */
+
+// Import Classes
 import java.util.Scanner;
 
 public class Tester{
 
+	// Main class
 	public static void main(String[] args){
 		WordPicker p = new WordPicker();
 		Scanner in = new Scanner(System.in);
 		boolean quit = false;
 		System.out.println("Welcome to Stephen's random word pair!");
+		
+		// Main program loop. Program is finished once this ends.
 		while (!quit){
 			boolean correct = false;
 			System.out.println("Your word pair is:\n" + p.wordPair());
 			String correctAnswer = p.getAnswer();
+			
+			// Asnwer checking loop
 			while (!correct){
 				System.out.print("Your answer is: ");
 				String answer = in.next();
@@ -37,6 +56,8 @@ public class Tester{
 					}
 				}
 			}
+			
+			// Try again or quit loop
 			while (true){
 				System.out.print("Would you like another word pair?(Y/N):  ");
 				String exit = in.next();
