@@ -95,24 +95,49 @@ public class WordPicker{
 	
 	/**
 	 * Returns a random integer given the list size.
-	 * Also designed to prevent repeat pairs.
 	 */
 	public int randomNum(int s){
-		int num = (int)(Math.random()*s);
-		while (num == num2){
-			num = (int)(Math.random()*s);
-		}
-		return num;
+		return (int)(Math.random()*s);
 	}
 	
 	/**
-	 * Returns a string of two words one randomly
+	 * Returns a string of two words randomly
 	 * selected from each list.
 	 */
 	public String wordPair(){
 		num1 = randomNum(list1Size);
-		num2 = randomNum(list2Size);
+		int num = randomNum(list2Size);
+		while (num == num2){
+			num = randomNum(list2Size);
+		}
+		num2 = num;
 		return list1[num1] + "-" + list2[num2];
+	}
+	
+	/**
+	 * Returns a randomly selected word
+	 * from list1 as a string.
+	 */
+	public String wordX(){
+		int num = randomNum(list1Size);
+		while (num == num1){
+			num = randomNum(list1Size);
+		}
+		num1 = num;
+		return list1[num1];
+	}
+	
+	/**
+	 * Returns a randomly selected word
+	 * from list2 as a string.
+	 */
+	public String wordY(){
+		int num = randomNum(list2Size);
+		while (num == num2){
+			num = randomNum(list2Size);
+		}
+		num2 = num;
+		return list2[num2];
 	}
 	
 	/**
