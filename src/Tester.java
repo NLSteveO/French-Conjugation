@@ -21,7 +21,7 @@ public class Tester{
 		WordPicker p = new WordPicker();
 		Scanner in = new Scanner(System.in);
 		boolean quit = false;
-		System.out.println("Welcome to Stephen's random word pair!");
+		System.out.println("Welcome to Stephen's French Conjugation Program!");
 		
 		// Main program loop. Program is finished once this ends.
 		while (!quit){
@@ -75,6 +75,6 @@ public class Tester{
 				}
 			}
 		}
-		System.out.println("Thank you for using Stephen's random word pair!\nCome again soon.");
+		System.out.println("Thank you for using Stephen's French Conjugation Program!\nCome again soon.");
 	}
 }
