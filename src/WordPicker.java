@@ -41,8 +41,8 @@ public class WordPicker{
 	 */
 	public void loadWords(){
 		try {
-			Scanner in1 = new Scanner(new File("list1"));
-			Scanner in2 = new Scanner(new File("list2"));
+			Scanner in1 = new Scanner(new File("lib/list1"));
+			Scanner in2 = new Scanner(new File("lib/list2"));
 			ArrayList<String> tmpList = new ArrayList<String>();
 			ArrayList<String> tmpList2 = new ArrayList<String>();
 			while (in1.hasNextLine()){
@@ -61,6 +61,7 @@ public class WordPicker{
 		}
 		catch (Exception e){
 			System.out.println("error: " + e);
+			System.exit(1);
 		}
 	}
 	

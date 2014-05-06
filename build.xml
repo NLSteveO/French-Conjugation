@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="French Conjugation" default="help" basedir=".">
+
+	<target name="help">
+		<echo message="ant help -- Print this message"/>
+		<echo message="ant run -- Runs the graphical interface for the program"/>
+		<echo message="ant compile -- Compiles the source files"/>
+		<echo message="ant clean -- Removes the class files"/>
+	</target>
+	
+	<property name="src" value="src"/>
+	<property name="class" value="classes"/>
+	
+	<target name="init">
+		<mkdir dir="classes"/>
+	</target>
+	
+	<target name="run" depends="compile">
+		<java classname="WordPickerFrame" fork="true">
+			<classpath path="${class}"/>
+		</java>
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac includeantruntime="false" 
+			srcdir="src" destdir="${class}">
+			
+			<include name="**/*.java"/>
+		</javac>
+	</target>
+	
+	<target name="clean">
+		<delete>
+			<fileset dir="${class}" includes="**/*.class"/>
+		</delete>
+	</target>
+	
+	
+</project>
