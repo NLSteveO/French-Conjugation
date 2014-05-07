@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,8 +38,8 @@ public class WordPickerFrame extends JFrame{
 	private JLabel word1 = new JLabel("");
 	private JLabel word2 = new JLabel("");
 	private JLabel status = new JLabel("");
-	private JTextField answer = new JTextField("");
-	private JButton gen, genX, genY, check;
+	private JTextField answer;// = new JTextField("");
+	private JButton gen, genX, genY, check, show;
 	private JPanel mainPan = new JPanel();
 	private Dimension size;
 	private Border border = BorderFactory.createLoweredBevelBorder();
@@ -47,7 +48,7 @@ public class WordPickerFrame extends JFrame{
 	// Constructor
 	public WordPickerFrame(){
 		super("French Conjugation Generator");
-		size = new Dimension(720, 560);
+		size = new Dimension(600, 300);
 		setSize(size);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -102,6 +103,7 @@ public class WordPickerFrame extends JFrame{
 		mainPan.add(word2, c);
 		
 		// Add answer textfield
+		createEnterAction();
 		answer.setColumns(20);
 		c.gridx = 2;
 		mainPan.add(answer, c);
@@ -133,6 +135,12 @@ public class WordPickerFrame extends JFrame{
 		c.gridx = 0;
 		c.gridy = 3;
 		mainPan.add(status, c);
+		
+		// Add show answer button
+		createShowButton();
+		c.gridx = 0;
+		c.gridy = 4;
+		mainPan.add(show, c);
 	}
 	
 	/**
@@ -219,8 +227,42 @@ public class WordPickerFrame extends JFrame{
 		ActionListener listener = new ButtonListener();
 		check.addActionListener(listener);
 		return check;
-	}	
+	}
+	
+	/**
+	 * Creates and returns the show answer
+	 * button and associated action listener.
+	 */
+	public JButton createShowButton(){
+		show = new JButton("Show Answer");
+		class ButtonListener implements ActionListener{
+			public void actionPerformed(ActionEvent event){
+				status.setText(pair.getAnswer());
+			}
+		}
+		ActionListener listener = new ButtonListener();
+		show.addActionListener(listener);
+		return show;
+	}
 
+	public JTextField createEnterAction(){
+		answer = new JTextField("");
+		class KeyListener implements ActionListener{
+			public void actionPerformed(ActionEvent ae){
+					String an = answer.getText();
+					if (an.equalsIgnoreCase(pair.getAnswer())){
+						status.setText("Correct");
+					}
+					else {
+						status.setText("Incorrect");
+					}
+			}
+		}
+		ActionListener listener = new KeyListener();
+		answer.addActionListener(listener);
+		return answer;
+	}
+	
 	// Main Class that runs the interface
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
