@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-
+import javax.swing.JComboBox;
 
 public class WordPickerFrame extends JFrame{
 
@@ -41,9 +41,11 @@ public class WordPickerFrame extends JFrame{
 	private JTextField answer;// = new JTextField("");
 	private JButton gen, genX, genY, check, show;
 	private JPanel mainPan = new JPanel();
+	private JComboBox drop;
 	private Dimension size;
 	private Border border = BorderFactory.createLoweredBevelBorder();
 	private WordPicker pair;
+	private String[] lists = {"Irregular", "Regular"};
 	
 	// Constructor
 	public WordPickerFrame(){
@@ -71,6 +73,15 @@ public class WordPickerFrame extends JFrame{
 			c.fill = GridBagConstraints.HORIZONTAL;
 		}
 		
+		// Add drop down list
+		createDropList();
+		c.fill = GridBagConstraints.CENTER;
+		c.weightx = 0.5;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+		mainPan.add(drop, c);
+		
 		// Add "Generate Phrase" button
 		createGenButton();
 		gen.setPreferredSize(new Dimension(500, 40));
@@ -79,7 +90,7 @@ public class WordPickerFrame extends JFrame{
 		c.insets = new Insets(10, 0, 0, 0);
 		c.gridwidth = 3;
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = 1;
 		mainPan.add(gen, c);
 		
 		// Add word1 label
@@ -91,7 +102,7 @@ public class WordPickerFrame extends JFrame{
 		c.weightx = 0.5;
 		c.gridwidth = 1;
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		mainPan.add(word1, c);
 		
 		// Add word2 label
@@ -111,7 +122,7 @@ public class WordPickerFrame extends JFrame{
 		// Add generate word1 button
 		createGenXButton();
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		mainPan.add(genX, c);
 		
 		// Add generate word2 button
@@ -133,13 +144,13 @@ public class WordPickerFrame extends JFrame{
 		c.weightx = 0.0;
 		c.gridwidth = 3;
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		mainPan.add(status, c);
 		
 		// Add show answer button
 		createShowButton();
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		mainPan.add(show, c);
 	}
 	
@@ -261,6 +272,33 @@ public class WordPickerFrame extends JFrame{
 		ActionListener listener = new KeyListener();
 		answer.addActionListener(listener);
 		return answer;
+	}
+	
+	public JComboBox createDropList(){
+		drop = new JComboBox(lists);
+		class DropListener implements ActionListener{
+			public void actionPerformed(ActionEvent ae){
+				JComboBox cb = (JComboBox)ae.getSource();
+				String selected = (String)cb.getSelectedItem();
+				if (selected.equalsIgnoreCase(drop.getItemAt(0).toString())){
+					word1.setText("");
+					word2.setText("");
+					answer.setText("");
+					status.setText("Loaded Irregular List");
+					pair.loadWords("irr");
+				}
+				else if (selected.equalsIgnoreCase(drop.getItemAt(1).toString())){
+					word1.setText("");
+					word2.setText("");
+					answer.setText("");
+					status.setText("Loaded Regular List");
+					pair.loadWords("reg");
+				}
+			}
+		}
+		ActionListener listener = new DropListener();
+		drop.addActionListener(listener);
+		return drop;
 	}
 	
 	// Main Class that runs the interface

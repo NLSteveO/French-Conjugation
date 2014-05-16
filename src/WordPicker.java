@@ -31,7 +31,7 @@ public class WordPicker{
 	
 	// Constructor
 	public WordPicker(){
-		loadWords();
+		loadWords("irr");
 	}
 	
 	/**
@@ -39,10 +39,10 @@ public class WordPicker{
 	 * the needed words and creates three
 	 * array word lists.
 	 */
-	public void loadWords(){
+	public void loadWords(String l){
 		try {
 			Scanner in1 = new Scanner(new File("lib/list1"));
-			Scanner in2 = new Scanner(new File("lib/list2"));
+			Scanner in2 = new Scanner(new File("lib/" + l));
 			ArrayList<String> tmpList = new ArrayList<String>();
 			ArrayList<String> tmpList2 = new ArrayList<String>();
 			while (in1.hasNextLine()){
