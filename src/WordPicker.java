@@ -40,13 +40,18 @@ public class WordPicker{
 	 * array word lists.
 	 */
 	public void loadWords(String l){
+	
+	    File file1 = new File("lib/list1");
+	    File file2 = new File("lib/" + l);
+	    FileInputStream fis = null;
+	    
 		try {
-			Scanner in1 = new Scanner(new File("lib/list1"));
-			Scanner in2 = new Scanner(new File("lib/" + l));
+		    fis = new FileInputStream(file1);
 			ArrayList<String> tmpList = new ArrayList<String>();
 			ArrayList<String> tmpList2 = new ArrayList<String>();
-			while (in1.hasNextLine()){
-				tmpList.add(in1.nextLine());
+			int content;
+			while ((content = fis.read()) != -1){
+				tmpList.add((char) content);
 			}
 			listSwap(1, tmpList);
 			int c = 0;
