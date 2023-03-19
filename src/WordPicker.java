@@ -11,7 +11,7 @@
  *
  * @author Steve O'Keefe
  */
- 
+
 // Import classes
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -28,25 +28,29 @@ public class WordPicker{
 	private int list3Size;
 	private int num1;
 	private int num2;
-	
+
 	// Constructor
 	public WordPicker(){
 		loadWords("irr");
 	}
-	
+
 	/**
 	 * Loads the two list files containing
 	 * the needed words and creates three
 	 * array word lists.
 	 */
 	public void loadWords(String l){
+		File file1 = new File("lib/list1");
+		File file2 = new File("lib/" + l);
+		FileInputStream fis = null;
+
 		try {
-			Scanner in1 = new Scanner(new File("lib/list1"));
-			Scanner in2 = new Scanner(new File("lib/" + l));
+			fis = new FileInputStream(file1);
 			ArrayList<String> tmpList = new ArrayList<String>();
 			ArrayList<String> tmpList2 = new ArrayList<String>();
-			while (in1.hasNextLine()){
-				tmpList.add(in1.nextLine());
+			int content;
+			while ((content = fis.read()) != -1){
+				tmpList.add((char) content);
 			}
 			listSwap(1, tmpList);
 			int c = 0;
@@ -64,7 +68,7 @@ public class WordPicker{
 			System.exit(1);
 		}
 	}
-	
+
 	/**
 	 * Takes an arraylist and given a list
 	 * number transfers the values from the
@@ -93,14 +97,14 @@ public class WordPicker{
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns a random integer given the list size.
 	 */
 	public int randomNum(int s){
 		return (int)(Math.random()*s);
 	}
-	
+
 	/**
 	 * Returns a string of two words randomly
 	 * selected from each list.
@@ -114,7 +118,7 @@ public class WordPicker{
 		num2 = num;
 		return list1[num1] + "-" + list2[num2];
 	}
-	
+
 	/**
 	 * Returns a randomly selected word
 	 * from list1 as a string.
@@ -127,7 +131,7 @@ public class WordPicker{
 		num1 = num;
 		return list1[num1];
 	}
-	
+
 	/**
 	 * Returns a randomly selected word
 	 * from list2 as a string.
@@ -140,7 +144,7 @@ public class WordPicker{
 		num2 = num;
 		return list2[num2];
 	}
-	
+
 	/**
 	 * Returns the correct answer corresponding
 	 * to the other two words.
@@ -149,7 +153,7 @@ public class WordPicker{
 		String[] tmp = list3[num2].split(",");
 		return tmp[num1];
 	}
-	
+
 	/**
 	 * Used for testing purposes to print out the
 	 * two lists loaded. Will remove in future.
